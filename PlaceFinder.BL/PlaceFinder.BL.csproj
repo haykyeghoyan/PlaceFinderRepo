@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ServiceInterfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\PlaceFinder.DAL\PlaceFinder.DAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceFinder", "PlaceFinder\PlaceFinder.csproj", "{246F2BAB-D2AF-4E03-9B3E-FDEBE6ECE659}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaceFinder", "PlaceFinder\PlaceFinder.csproj", "{246F2BAB-D2AF-4E03-9B3E-FDEBE6ECE659}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceFinder.DAL", "PlaceFinder.DAL\PlaceFinder.DAL.csproj", "{F7A6FFC7-52C6-40E1-AE55-7AB45F1B231A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaceFinder.DAL", "PlaceFinder.DAL\PlaceFinder.DAL.csproj", "{F7A6FFC7-52C6-40E1-AE55-7AB45F1B231A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceFinder.BL", "PlaceFinder.BL\PlaceFinder.BL.csproj", "{300B27C8-9EA0-4C43-907F-400BCA440821}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaceFinder.BL", "PlaceFinder.BL\PlaceFinder.BL.csproj", "{300B27C8-9EA0-4C43-907F-400BCA440821}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

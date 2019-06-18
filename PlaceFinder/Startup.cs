@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PlaceFinder.BL.ServiceInterfaces;
+using PlaceFinder.BL.Services;
+using PlaceFinder.DAL.UoW;
 
 namespace PlaceFinder
 {
@@ -26,6 +29,11 @@ namespace PlaceFinder
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();  //create one instance per application
+            services.AddScoped<ICategoryService, CategoryService>(); //create one instance per request 
+            // Dependency Injection
+            // where I'v injected ICategoryService , programm create (CategoryService) object
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
