@@ -31,7 +31,7 @@ namespace PlaceFinder.Controllers
 
 
         // GET: api/Category/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public CategoryVM Get(int id)
         {
             var category = categoryService.GetCategoryById(id);

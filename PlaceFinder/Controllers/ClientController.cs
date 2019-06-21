@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PlaceFinder.BL.DTOs;
+using PlaceFinder.BL.ServiceInterfaces;
 using PlaceFinder.VMs;
 
 namespace PlaceFinder.Controllers
@@ -12,7 +11,15 @@ namespace PlaceFinder.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-       
+
+        private readonly IClientService clientService;
+        private readonly IMapper _mapper;
+
+        public ClientController(IClientService clientService, IMapper mapper)
+        {
+            this.clientService = clientService;
+            _mapper = mapper;
+        }
 
         // GET: api/Client
         [HttpGet]
@@ -22,22 +29,27 @@ namespace PlaceFinder.Controllers
         }
 
         // GET: api/Client/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public ClientVM Get(int id)
         {
-            return "value";
+            var client = clientService.GetClientById(id);  
+            ClientVM response = _mapper.Map<ClientVM>(client);
+            return response;
         }
 
         // POST: api/Client
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] ClientVM client)
         {
+            ClientDTO _client = _mapper.Map<ClientDTO>(client);
+            clientService.Insert(_client);
         }
 
         // PUT: api/Client/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+
         }
 
         // DELETE: api/ApiWithActions/5

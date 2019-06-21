@@ -1,16 +1,14 @@
 ﻿using PlaceFinder.DAL.Models;
 using PlaceFinder.DAL.Repository;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlaceFinder.DAL.UoW
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private PlaceFinderContext context = new PlaceFinderContext();
-        private Repository<Category> categoryRepository;
-
+        private readonly Repository<Category> categoryRepository;
+        private readonly Repository<Client> clientRepository;
 
         public IRepository<Category> CategoryRepository
         {
@@ -20,13 +18,19 @@ namespace PlaceFinder.DAL.UoW
             }
         }
 
-
+        public IRepository<Client> ClientRepository
+        {
+            get
+            {
+                return this.clientRepository ?? new Repository<Client>(context);
+            }
+        }
+        
         public void Save()
         {
             context.SaveChanges();
         }
-
-
+    
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
@@ -39,7 +43,6 @@ namespace PlaceFinder.DAL.UoW
             }
             this.disposed = true;
         }
-
 
         public void Dispose()
         {
