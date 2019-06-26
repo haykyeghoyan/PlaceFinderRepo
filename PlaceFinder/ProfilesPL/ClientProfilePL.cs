@@ -9,6 +9,7 @@ namespace PlaceFinder.Profiles
         public ClientProfilePL()
         {
             CreateMap<ClientDTO, ClientVM>();
+            CreateMap<ClientVM, ClientDTO>();
         }
     }
 }

@@ -1,32 +1,30 @@
-﻿using PlaceFinder.BL.DTOs;
+﻿using AutoMapper;
+using PlaceFinder.BL.DTOs;
 using PlaceFinder.BL.ServiceInterfaces;
 using PlaceFinder.DAL.Models;
 using PlaceFinder.DAL.UoW;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlaceFinder.BL.Services
 {
     public class CategoryService : ICategoryService
     {
-        private IUnitOfWork unitOfWork;
+        private IUnitOfWork _unitOfWork;
+        private IMapper _mapper;
 
-        public CategoryService(IUnitOfWork unitOfWork)
+        public CategoryService(IUnitOfWork unitOfWork,IMapper mapper)
         {
-            this.unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public CategoryDTO GetCategoryById(int id)
         {
-            var category = unitOfWork.CategoryRepository.GetByID(id);
-
-            return new CategoryDTO
-            {
-                Id = category.Id,
-                Name = category.Name,
-                ParentId = category.ParentId
-            };
+            var category = _unitOfWork.CategoryRepository.GetByID(id);
+            CategoryDTO _category = _mapper.Map<CategoryDTO>(category);
+            return _category;
+            //without Automapper
+            //return new CategoryDTO
+            //{ Id = category.Id,Name = category.Name,ParentId = category.ParentId};
         }
 
         public CategoryDTO GetCategoryByName(string name)
@@ -34,38 +32,28 @@ namespace PlaceFinder.BL.Services
             return new CategoryDTO { };
         }
 
-        public void Insert(CategoryDTO model)
+        public void Insert(CategoryDTO category)
         {
-            var category = new Category
-            {
-                Name = model.Name,
-                ParentId = model.ParentId
-            };
-            unitOfWork.CategoryRepository.Insert(category);
-            unitOfWork.Save();
+            Category _category = _mapper.Map<Category>(category);
+            _unitOfWork.CategoryRepository.Insert(_category);
+            _unitOfWork.Save();
+            //var _category = new Category
+            //{ Name = category.Name,ParentId = category.ParentId };
         }
 
-        public void Update(CategoryDTO model)
+        public void Update(CategoryDTO category)
         {
-            var category = new Category
-            {
-                Id = model.Id,
-                Name = model.Name,
-                ParentId = model.ParentId
-            };
-            unitOfWork.CategoryRepository.Update(category);
-            unitOfWork.Save();
+            Category _category = _mapper.Map<Category>(category);
+            _unitOfWork.CategoryRepository.Update(_category);
+            _unitOfWork.Save();
         }
-        public void Delete(CategoryDTO model)
+        public void Delete(CategoryDTO category)
         {
-            var category = new Category
-            {
-                Id = model.Id,
-                Name = model.Name,
-                ParentId = model.ParentId
-            };
-            unitOfWork.CategoryRepository.Delete(category);
-            unitOfWork.Save();
+            Category _category = _mapper.Map<Category>(category);
+            _unitOfWork.CategoryRepository.Delete(_category);
+            _unitOfWork.Save();
+            //var _category = new Category
+            //{ Id = category.Id,Name = category.Name,ParentId = category.ParentId   };
         }
 
     }

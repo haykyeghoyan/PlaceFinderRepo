@@ -11,17 +11,17 @@ namespace PlaceFinder.BL.Services
 {
     public class ClientService : IClientService
     {
-        private IUnitOfWork unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
         public ClientService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.unitOfWork = unitOfWork;
+            this._unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public ClientDTO GetClientById(int id)
         {
-            var client = unitOfWork.ClientRepository.GetByID(id);
+            var client = _unitOfWork.ClientRepository.GetByID(id);
             ClientDTO _client = _mapper.Map<ClientDTO>(client);
             return _client;
             //return new ClientDTO{Id = client.Id,Name = client.Name};
@@ -35,17 +35,21 @@ namespace PlaceFinder.BL.Services
         public void Insert(ClientDTO client)
         {
             Client _client = _mapper.Map<Client>(client);
-            unitOfWork.ClientRepository.Insert(_client);
-            unitOfWork.Save();
+            _unitOfWork.ClientRepository.Insert(_client);
+            _unitOfWork.Save();
         }
 
         public void Update(ClientDTO client)
         {
-            throw new NotImplementedException();
+            Client _client = _mapper.Map<Client>(client);
+            _unitOfWork.ClientRepository.Update(_client);
+            _unitOfWork.Save();
         }
         public void Delete(ClientDTO client)
         {
-            throw new NotImplementedException();
+            Client _client = _mapper.Map<Client>(client);
+            _unitOfWork.ClientRepository.Delete(_client);
+            _unitOfWork.Save();
         }
     }
 }

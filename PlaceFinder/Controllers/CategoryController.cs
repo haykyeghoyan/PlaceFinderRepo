@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlaceFinder.BL.DTOs;
@@ -14,11 +15,13 @@ namespace PlaceFinder.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private ICategoryService categoryService;
+        private ICategoryService _categoryService;
+        private IMapper _mapper;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, IMapper mapper)
         {
-            this.categoryService = categoryService;
+            _categoryService = categoryService;
+            _mapper = mapper;
         }
 
 
@@ -34,57 +37,37 @@ namespace PlaceFinder.Controllers
         [HttpGet("{id}")]
         public CategoryVM Get(int id)
         {
-            var category = categoryService.GetCategoryById(id);
-            var response = new CategoryVM
-            {
-                Id = category.Id,
-                Name = category.Name
-            };
+            var category = _categoryService.GetCategoryById(id);
+            CategoryVM response = _mapper.Map<CategoryVM>(category);
+            //var response = new CategoryVM
+            //{Id = category.Id,Name = category.Name};
             return response;
         }
 
-
-
         // POST: api/Category
         [HttpPost]
-        public void Post([FromBody] CategoryVM model)
+        public void Post([FromBody] CategoryVM category)
         {
-            var category = new CategoryDTO
-            {
-                Name = model.Name,
-                ParentId = model.Parent
-            };
-            categoryService.Insert(category);
-
+            CategoryDTO _category = _mapper.Map<CategoryDTO>(category);
+            _categoryService.Insert(_category);
         }
 
         // PUT: api/Category/5
         [HttpPut("{id}")]
-        public void Update(int id, [FromBody] CategoryVM model)
+        public void Update(int id, [FromBody] CategoryVM category)
         {
-           
-            var category = new CategoryDTO
-            {
-                Id = id,
-                Name = model.Name,
-                ParentId = model.Parent
-            };
-            categoryService.Update(category);
+            CategoryDTO _category = _mapper.Map<CategoryDTO>(category);
+            _category.Id = id;
+            _categoryService.Update(_category);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id, [FromBody] CategoryVM model)
+        public void Delete(int id, [FromBody] CategoryVM category)
         {
-            var category = new CategoryDTO
-            {
-                Id = id,
-                Name = model.Name,
-                ParentId = model.Parent
-            };
-
-            categoryService.Delete(category);
-
+            CategoryDTO _category = _mapper.Map<CategoryDTO>(category);
+            _category.Id = id;
+            _categoryService.Delete(_category);
         }
     }
 }

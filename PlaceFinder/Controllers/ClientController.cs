@@ -12,12 +12,12 @@ namespace PlaceFinder.Controllers
     public class ClientController : ControllerBase
     {
 
-        private readonly IClientService clientService;
+        private readonly IClientService _clientService;
         private readonly IMapper _mapper;
 
         public ClientController(IClientService clientService, IMapper mapper)
         {
-            this.clientService = clientService;
+            _clientService = clientService;
             _mapper = mapper;
         }
 
@@ -32,7 +32,7 @@ namespace PlaceFinder.Controllers
         [HttpGet("{id}")]
         public ClientVM Get(int id)
         {
-            var client = clientService.GetClientById(id);  
+            var client = _clientService.GetClientById(id);  
             ClientVM response = _mapper.Map<ClientVM>(client);
             return response;
         }
@@ -42,20 +42,26 @@ namespace PlaceFinder.Controllers
         public void Post([FromBody] ClientVM client)
         {
             ClientDTO _client = _mapper.Map<ClientDTO>(client);
-            clientService.Insert(_client);
+            _clientService.Insert(_client);
         }
 
         // PUT: api/Client/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, ClientVM client)
         {
-
+            ClientDTO _client = _mapper.Map<ClientDTO>(client);
+            _client.Id = id;
+            _clientService.Update(_client);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(int id , [FromBody] ClientVM client)
         {
+            ClientDTO _client = _mapper.Map<ClientDTO>(client);
+            _client.Id = id;
+            _clientService.Delete(_client);
+            
         }
     }
 }

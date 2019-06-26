@@ -7,12 +7,13 @@ using System.Text;
 
 namespace PlaceFinder.BL.ProfilesBL
 {
-    class ClientProfileBL : Profile
+    class CategoryProfileBL : Profile
     {
-        public ClientProfileBL()
+        public CategoryProfileBL()
         {
-            CreateMap<Client, ClientDTO>();
-            CreateMap<ClientDTO, Client>();
+            CreateMap<Category, CategoryDTO>();
+            CreateMap<CategoryDTO, Category>();
+
         }
     }
 }
