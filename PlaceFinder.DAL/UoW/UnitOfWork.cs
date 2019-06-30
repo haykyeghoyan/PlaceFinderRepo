@@ -1,4 +1,5 @@
-﻿using PlaceFinder.DAL.Models;
+﻿using PlaceFinder.DAL.DbContex;
+using PlaceFinder.DAL.Models;
 using PlaceFinder.DAL.Repository;
 using System;
 

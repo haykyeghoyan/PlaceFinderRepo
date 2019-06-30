@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using PlaceFinder.DAL.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace PlaceFinder.DAL.Models
+namespace PlaceFinder.DAL.DbContex
 {
     public partial class PlaceFinderContext : DbContext
     {
