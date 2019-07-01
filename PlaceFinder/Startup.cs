@@ -39,9 +39,8 @@ namespace PlaceFinder
             services.AddSingleton<IUnitOfWork, UnitOfWork>();  //create one instance per application (Singleton)
             services.AddScoped<ICategoryService, CategoryService>(); //create one instance per request (AddScoped) 
             services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IPlaceService, PlaceService>();
 
-            
-                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

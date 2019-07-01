@@ -7,15 +7,16 @@ namespace PlaceFinder.DAL.UoW
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
-        private PlaceFinderContext context = new PlaceFinderContext();
-        private readonly Repository<Category> categoryRepository;
-        private readonly Repository<Client> clientRepository;
+        private PlaceFinderContext _context = new PlaceFinderContext();
+        private readonly Repository<Category> _categoryRepository;
+        private readonly Repository<Client> _clientRepository;
+        private readonly Repository<Place> _placeRepository;
 
         public IRepository<Category> CategoryRepository
         {
             get
             {
-                return this.categoryRepository ?? new Repository<Category>(context);
+                return _categoryRepository ?? new Repository<Category>(_context);
             }
         }
 
@@ -23,13 +24,21 @@ namespace PlaceFinder.DAL.UoW
         {
             get
             {
-                return this.clientRepository ?? new Repository<Client>(context);
+                return _clientRepository ?? new Repository<Client>(_context);
             }
         }
-        
+
+        public IRepository<Place> PlaceRepository
+        {
+            get
+            {
+                return _placeRepository ?? new Repository<Place>(_context);
+            }
+        }
+
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     
         private bool disposed = false;
@@ -39,7 +48,7 @@ namespace PlaceFinder.DAL.UoW
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;

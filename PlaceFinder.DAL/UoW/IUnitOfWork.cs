@@ -7,6 +7,7 @@ namespace PlaceFinder.DAL.UoW
     {
         IRepository<Category> CategoryRepository { get; }
         IRepository<Client> ClientRepository { get; }
+        IRepository<Place> PlaceRepository { get; }
 
         void Dispose();
         void Save();
