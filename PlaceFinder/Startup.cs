@@ -40,6 +40,7 @@ namespace PlaceFinder
             services.AddScoped<ICategoryService, CategoryService>(); //create one instance per request (AddScoped) 
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IPlaceService, PlaceService>();
+            services.AddScoped<IProductService, ProductService>();
 
         }
 

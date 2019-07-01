@@ -11,6 +11,7 @@ namespace PlaceFinder.DAL.UoW
         private readonly Repository<Category> _categoryRepository;
         private readonly Repository<Client> _clientRepository;
         private readonly Repository<Place> _placeRepository;
+        private readonly Repository<Product> _productRepository;
 
         public IRepository<Category> CategoryRepository
         {
@@ -33,6 +34,14 @@ namespace PlaceFinder.DAL.UoW
             get
             {
                 return _placeRepository ?? new Repository<Place>(_context);
+            }
+        }
+
+        public IRepository<Product> ProductRepository
+        {
+            get
+            {
+                return _productRepository ?? new Repository<Product>(_context);
             }
         }
 

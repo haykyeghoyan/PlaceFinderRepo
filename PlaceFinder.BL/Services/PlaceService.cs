@@ -52,8 +52,6 @@ namespace PlaceFinder.BL.Services
             _unitOfWork.PlaceRepository.Delete(_place);
             _unitOfWork.Save();
         }
-
-
-
+               
     }
 }
