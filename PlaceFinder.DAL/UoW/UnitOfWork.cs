@@ -12,6 +12,8 @@ namespace PlaceFinder.DAL.UoW
         private readonly Repository<Client> _clientRepository;
         private readonly Repository<Place> _placeRepository;
         private readonly Repository<Product> _productRepository;
+        private readonly Repository<User> _userRepository;
+
 
         public IRepository<Category> CategoryRepository
         {
@@ -45,11 +47,19 @@ namespace PlaceFinder.DAL.UoW
             }
         }
 
+        public IRepository<User> UserRepository
+        {
+            get
+            {
+                return _userRepository ?? new Repository<User>(_context);
+            }
+        }
+
         public void Save()
         {
             _context.SaveChanges();
         }
-    
+
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {

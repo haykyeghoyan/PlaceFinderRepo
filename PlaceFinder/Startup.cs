@@ -41,6 +41,7 @@ namespace PlaceFinder
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IPlaceService, PlaceService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IUserService, UserService>();
 
         }
 
