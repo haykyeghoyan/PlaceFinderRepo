@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,9 +31,16 @@ namespace PlaceFinder
             //create default identity model 
             var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             var connectionString = Configuration.GetConnectionString("PlaceFinderContext");
-            services.AddDbContext<IdentityDbContext>(opt => opt.UseSqlServer(connectionString, 
+
+            services.AddDbContext<IdentityDbContext>(opt => opt.UseSqlServer(connectionString,
                                                             sql => sql.MigrationsAssembly(migrationAssembly)));
-            
+            services.AddIdentityCore<IdentityUser>(options => { });
+
+            services.AddScoped<IUserStore<IdentityUser>, UserOnlyStore<IdentityUser, IdentityDbContext>>();
+
+            services.AddIdentityCore<IdentityUser>(options => { }).AddRoles<IdentityRole>()
+                                                                  .AddEntityFrameworkStores<IdentityDbContext>()
+                                                                  .AddSignInManager();
             services.AddAutoMapper();
 
             // Dependency Injection
@@ -59,6 +67,7 @@ namespace PlaceFinder
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseAuthentication();
         }
     }
 }

@@ -14,7 +14,6 @@ namespace PlaceFinder.DAL.UoW
         private readonly Repository<Product> _productRepository;
         private readonly Repository<User> _userRepository;
 
-
         public IRepository<Category> CategoryRepository
         {
             get

@@ -50,7 +50,7 @@ namespace PlaceFinder.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] UserVM user)
+        public void Put(string id, [FromBody] UserVM user)
         {
             UserDTO _user = _mapper.Map<UserDTO>(user);
             _user.Id = id;
@@ -59,7 +59,7 @@ namespace PlaceFinder.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id, [FromBody] UserVM user)
+        public void Delete(string id, [FromBody] UserVM user)
         {
             UserDTO _user = _mapper.Map<UserDTO>(user);
             _user.Id = id;
