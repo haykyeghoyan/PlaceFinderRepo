@@ -30,11 +30,11 @@ namespace PlaceFinder.Controllers
 
  
         [HttpPost]
-        public void Register([FromBody] UserVM model)
+        public async Task Register([FromBody] UserVM model)
         {
-            var result = _userManager.CreateAsync(new IdentityUser
+            var result = await _userManager.CreateAsync(new IdentityUser
             { UserName = model.Email, Email = model.Email }, model.PasswordHash);
-         
+
         }
     }
 }

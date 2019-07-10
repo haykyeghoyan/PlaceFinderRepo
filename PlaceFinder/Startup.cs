@@ -34,10 +34,7 @@ namespace PlaceFinder
 
             services.AddDbContext<IdentityDbContext>(opt => opt.UseSqlServer(connectionString,
                                                             sql => sql.MigrationsAssembly(migrationAssembly)));
-            services.AddIdentityCore<IdentityUser>(options => { });
-
-            services.AddScoped<IUserStore<IdentityUser>, UserOnlyStore<IdentityUser, IdentityDbContext>>();
-
+          
             services.AddIdentityCore<IdentityUser>(options => { }).AddRoles<IdentityRole>()
                                                                   .AddEntityFrameworkStores<IdentityDbContext>()
                                                                   .AddSignInManager();
